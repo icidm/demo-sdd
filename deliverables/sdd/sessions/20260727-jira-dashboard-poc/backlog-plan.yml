@@ -1,0 +1,23 @@
+schema_version: 2
+session: 20260727-jira-dashboard-poc
+source: .aicontext/deliverables/sdd/sessions/20260727-jira-dashboard-poc
+backlog_items:
+  - id: US-001
+    type: user-story
+    title: PoC Jira projects dashboard with multi-project delivery KPIs
+    source_spec: specs/jira/jira-projects-dashboard-kpis/spec.md
+    change_kind: new
+    publish_decision: pending
+    roadmap:
+      priority: null
+      size: null
+      milestone: null
+      project_status: candidate
+      project_fields: {}
+    github:
+      issue_url: null
+      issue_number: null
+      project_number: null
+      project_item_id: null
+      last_synced_commit: null
+      sync_status: not-published

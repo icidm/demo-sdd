@@ -1,0 +1,9 @@
+schema_version: 1
+phase: implementation
+status: ready
+artifacts:
+  code:
+    kind: code-journal
+    scope: session
+    path: code.md
+blocker_refs: []

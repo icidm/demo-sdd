@@ -1,0 +1,50 @@
+
+> jira-dashboard-poc@0.1.0 test
+> npm run test -w shared && npm run test -w backend && npm run test -w frontend
+
+
+> @demo/shared@0.1.0 test
+> vitest run
+
+
+ RUN  v2.1.9 /Users/iagocid/Library/CloudStorage/OneDrive-Indra/Proyectos/Inditex/IA/demo-ssd/runtimes/root/shared
+
+ ✓ test/contracts.test.ts (1 test) 19ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  11:55:43
+   Duration  3.23s (transform 321ms, setup 0ms, collect 166ms, tests 19ms, environment 0ms, prepare 848ms)
+
+
+> @demo/backend@0.1.0 test
+> vitest run
+
+
+ RUN  v2.1.9 /Users/iagocid/Library/CloudStorage/OneDrive-Indra/Proyectos/Inditex/IA/demo-ssd/runtimes/root/backend
+
+ ✓ test/dashboard-controller.test.ts (1 test) 6ms
+ ✓ test/kpi-engine.test.ts (3 tests) 11ms
+ ✓ test/dashboard-service.test.ts (3 tests) 11ms
+
+ Test Files  3 passed (3)
+      Tests  7 passed (7)
+   Start at  11:55:51
+   Duration  3.25s (transform 281ms, setup 0ms, collect 459ms, tests 29ms, environment 1ms, prepare 1.30s)
+
+
+> @demo/frontend@0.1.0 test
+> vitest run
+
+
+ RUN  v2.1.9 /Users/iagocid/Library/CloudStorage/OneDrive-Indra/Proyectos/Inditex/IA/demo-ssd/runtimes/root/frontend
+
+ ✓ test/dashboard-page.test.tsx (2 tests) 219ms
+ ✓ test/kpi-panels.test.tsx (1 test) 190ms
+ ✓ test/filter-context.test.tsx (1 test) 276ms
+
+ Test Files  3 passed (3)
+      Tests  4 passed (4)
+   Start at  11:56:00
+   Duration  7.95s (transform 199ms, setup 1.69s, collect 1.53s, tests 685ms, environment 11.01s, prepare 1.90s)
+

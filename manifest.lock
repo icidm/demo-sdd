@@ -1,0 +1,78 @@
+schemaVersion: 1
+rootManifestHash: 84e7e4cf48691aa7404ca6d0dd2a00ce6b3790038760a645b7592cd3d48cb2e3
+generatedAt: '1785214840'
+templates:
+- reference: github:inditex/cac-moyaagentrules#templates/itx-coding
+  sha: 409e9b6bb476f8c0218ae3df055b8d4a2d748225
+  origin: template:github:inditex/cac-moyaagentrules#templates/sdd
+- reference: github:inditex/cac-moyaagentrules#templates/sdd
+  sha: 409e9b6bb476f8c0218ae3df055b8d4a2d748225
+  origin: user
+packages:
+  inditex_cac-moyaagentrules:
+    declared:
+      source: github:inditex/cac-moyaagentrules
+      select:
+        tools:
+        - aidevtracker
+        - geppetto-graph
+    source: github:inditex/cac-moyaagentrules
+    selectHash: a64d2f55b03c80ee
+    sha: 2b238b682f7c18e7453e23851c21f4e2f1c32ab0
+    origin: user manifest
+    position: 0
+  moya:
+    declared:
+      name: moya
+      source: github:inditex/cac-moyaagentrules
+      select:
+        skills:
+        - aidev-code
+        - conventional-commits
+        - gh-issue-create
+        - gh-issue-comment
+        - gh-pr-create
+        - gh-pr-comment
+        - paas-config
+        - asdf-allowlist
+        - asdf-command-not-found
+        - asdf-plugin-add
+        - asdf-version-install
+        - asdf-version-set
+        - aidev-agent-questions
+        - aidev-explore
+        - aidev-workspace-bootstrap
+        - aidev-sdd
+        - aidev-research
+        - aidev-plan
+        - aidev-tech-plan
+        - aidev-test
+        - aidev-verify
+        - aidev-review
+        - aidev-retro
+        - backlog-management
+        - aidev-pr-remote-diagnosis
+        - inditex-software-artifacts
+        mcps:
+        - git-workflow
+        - devhub
+        - geppetto
+        agents:
+        - aidev-coder/AIDevCoder
+        - aidev-init/AIDevInit
+        - aidev-orchestrator/AIDevOrchestrator
+        - aidev-planner/AIDevPlanner
+        - aidev-researcher/AIDevResearcher
+        - aidev-retro/AIDevRetro
+        - aidev-tester/AIDevTester
+        - aidev-tech-planner/AIDevTechPlanner
+        - aidev-verifier/AIDevVerifier
+        tools:
+        - aidevtracker
+        - aidev-verify-deps
+        - aidev-scripts-deps
+    source: github:inditex/cac-moyaagentrules
+    selectHash: 7e62cebe8f4b4d0e
+    sha: 409e9b6bb476f8c0218ae3df055b8d4a2d748225
+    origin: template:github:inditex/cac-moyaagentrules#templates/itx-coding
+    position: 1

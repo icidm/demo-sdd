@@ -1,0 +1,16 @@
+
+> jira-dashboard-poc@0.1.0 build
+> npm run build -w shared && npm run build -w backend && npm run build -w frontend
+
+
+> @demo/shared@0.1.0 build
+> tsc -p tsconfig.json
+
+
+> @demo/backend@0.1.0 build
+> tsc -p tsconfig.json
+
+
+> @demo/frontend@0.1.0 build
+> tsc -p tsconfig.json
+

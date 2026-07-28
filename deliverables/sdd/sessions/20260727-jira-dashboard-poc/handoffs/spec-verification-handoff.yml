@@ -1,0 +1,9 @@
+schema_version: 1
+phase: spec-verification
+status: ready
+artifacts:
+  verification:
+    kind: verification
+    scope: session
+    path: verification.md
+blocker_refs: []

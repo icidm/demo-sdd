@@ -1,0 +1,177 @@
+schema_version: 2
+session:
+  id: "20260727-jira-dashboard-poc"
+  name: "Jira dashboard PoC"
+  date: "20260727"
+  created_at: "2026-07-27T15:10:44Z"
+  updated_at: "2026-07-28T14:33:54Z"
+status: active
+execution_mode: interactive
+track: complex
+track_classification:
+  decided_by: "AIDevOrchestrator"
+  decided_at: "2026-07-27T15:10:57Z"
+  rationale: "Jira dashboard PoC with clear functional scope, Amiga Web/IOP DS UI constraints, Jira MCP as data source, and JSON persistence; needs spec + validation but not discovery or separate test-design."
+  signals:
+    - "user wants implementation plan"
+    - "user narrowed to PoC"
+    - "requires Amiga Web/IOP DS patterns"
+    - "uses Jira MCP and JSON persistence"
+specs:
+  - path: "specs/jira/jira-projects-dashboard-kpis/spec.md"
+    scope: session
+    relation: primary
+current_phase: functional-spec
+phases:
+  bootstrap:
+    status: complete
+    completed_at: "2026-07-27T15:10:57Z"
+    artifacts:
+      - trace.md
+      - sdd-state.yml
+  discovery:
+    status: skipped
+    completed_at: null
+    artifacts: []
+  functional-spec:
+    status: in-progress
+    completed_at: null
+    artifacts:
+      - "specs/jira/jira-projects-dashboard-kpis/spec.md"
+      - "backlog-plan.yml"
+      - "plan.md"
+  spec-validation:
+    status: pending
+    completed_at: null
+    artifacts: []
+  technical-plan:
+    status: pending
+    completed_at: null
+    artifacts:
+      - "tech-plan.md"
+  test-design:
+    status: skipped
+    completed_at: null
+    artifacts: []
+  implementation:
+    status: pending
+    completed_at: null
+    artifacts:
+      - "code.md"
+  spec-verification:
+    status: pending
+    completed_at: null
+    artifacts:
+      - "verification.md"
+  retro:
+    status: pending
+    completed_at: null
+    artifacts: []
+gates:
+  bootstrap:
+    status: pass
+    evidence:
+      - "session initialized; track=complex classified"
+  discovery:
+    status: skipped
+    evidence:
+      - "skipped: track=complex; Jira dashboard PoC with clear functional scope, Amiga Web/IOP DS UI constraints, Jira MCP as data source, and JSON persistence; needs spec + validation but not discovery or separate test-design."
+  functional-spec:
+    status: pending
+    evidence:
+      - "rerouted: from retro; User requested spec amendment: AC-3 (JSON snapshot fallback) and AC-6 (freshness UI) no longer hold since the snapshot persistence adapter and Freshness UI text were removed at explicit user request after spec-verification had already passed. Reopening functional-spec to amend/retire AC-3 and AC-6 before re-running spec-verification."
+      - "accepted handoff manifest: functional-spec-handoff.yml"
+  spec-validation:
+    status: pending
+    evidence:
+      - "Deterministic gate-check passed: session, spec-package, backlog, trace-gate, coverage."
+  technical-plan:
+    status: pending
+    evidence:
+      - "Technical plan remains valid; prior blocker was operational repo targeting and is now resolved"
+      - "rerouted: from implementation; Implementation failed due to operational repo blocker; repository is now unblocked, revalidating technical handoff before retry"
+      - "accepted handoff manifest: technical-plan-handoff.yml"
+  test-design:
+    status: skipped
+    evidence:
+      - "skipped: track=complex; Jira dashboard PoC with clear functional scope, Amiga Web/IOP DS UI constraints, Jira MCP as data source, and JSON persistence; needs spec + validation but not discovery or separate test-design."
+  implementation:
+    status: pending
+    evidence:
+      - "accepted handoff manifest: implementation-handoff.yml"
+      - "Blocked by BLOCK-REPO-CHECKOUT-MISSING: no local checkout for icidm/demo-sdd under workspace root."
+  spec-verification:
+    status: pending
+    evidence:
+      - "accepted handoff manifest: spec-verification-handoff.yml"
+  retro:
+    status: pending
+    evidence: []
+orchestration:
+  workspace_preflight:
+    status: ready
+    agent: sdd-state-cli
+    completed_at: "2026-07-27T15:11:18Z"
+    workspace_root: "/Users/iagocid/Library/CloudStorage/OneDrive-Indra/Proyectos/Inditex/IA/demo-ssd/runtimes/root"
+    repos_checked: []
+    already_initialized_repos: []
+    newly_initialized_repos: []
+    blocked_repos: []
+    validation_summary: "no repositories under repos/; allowed by --allow-no-repos"
+  pending_delegation: null
+  remediation_loop:
+    max_iterations: 3
+    iterations: 0
+    last_target: null
+metrics:
+  phases:
+    - phase: spec-verification
+      started_at: "2026-07-28T09:53:55Z"
+      completed_at: "2026-07-28T10:12:36Z"
+      specialist_invocations: 1
+      question_rounds: 0
+    - phase: implementation
+      started_at: "2026-07-28T04:49:23Z"
+      completed_at: "2026-07-28T08:05:17Z"
+      specialist_invocations: 3
+      question_rounds: 0
+    - phase: technical-plan
+      started_at: "2026-07-28T04:44:09Z"
+      completed_at: "2026-07-28T07:14:12Z"
+      specialist_invocations: 2
+      question_rounds: 0
+    - phase: spec-validation
+      started_at: "2026-07-28T04:42:43Z"
+      completed_at: "2026-07-28T04:43:00Z"
+      specialist_invocations: 1
+      question_rounds: 0
+    - phase: functional-spec
+      started_at: "2026-07-27T15:11:35Z"
+      completed_at: "2026-07-28T04:41:32Z"
+      specialist_invocations: 2
+      question_rounds: 0
+decisions:
+  - date: "2026-07-28T14:33:46Z"
+    decision: "Rerouted retro -> functional-spec for remediation. User requested spec amendment: AC-3 (JSON snapshot fallback) and AC-6 (freshness UI) no longer hold since the snapshot persistence adapter and Freshness UI text were removed at explicit user request after spec-verification had already passed. Reopening functional-spec to amend/retire AC-3 and AC-6 before re-running spec-verification."
+    owner: "AIDevOrchestrator"
+  - date: "2026-07-28T07:19:47Z"
+    decision: "wrong-origin/master verified as single empty-tree cleanup commit; no additional rollback target exists"
+    owner: "AIDevOrchestrator"
+  - date: "2026-07-28T07:12:47Z"
+    decision: "Rerouted implementation -> technical-plan for remediation. Implementation failed due to operational repo blocker; repository is now unblocked, revalidating technical handoff before retry"
+    owner: "AIDevOrchestrator"
+  - date: "2026-07-28T07:11:29Z"
+    decision: "Autopilot offer after technical-plan: declined \u2014 continuing in interactive mode"
+    owner: "AIDevOrchestrator"
+  - date: "2026-07-28T04:51:24Z"
+    decision: "Implementation blocked: missing local checkout for target repository icidm/demo-sdd (BLOCK-REPO-CHECKOUT-MISSING)."
+    owner: "AIDevOrchestrator"
+  - date: "2026-07-28T04:48:49Z"
+    decision: "Autopilot checkpoint after technical-plan: user selected to continue in interactive mode before implementation delegation."
+    owner: "AIDevOrchestrator"
+  - date: "2026-07-27T15:10:57Z"
+    decision: "Track classified as complex. Jira dashboard PoC with clear functional scope, Amiga Web/IOP DS UI constraints, Jira MCP as data source, and JSON persistence; needs spec + validation but not discovery or separate test-design."
+    owner: "AIDevOrchestrator"
+  - date: "2026-07-27T15:10:44Z"
+    decision: Topic initialized with the standard SDD workflow.
+    owner: AIDevOrchestrator

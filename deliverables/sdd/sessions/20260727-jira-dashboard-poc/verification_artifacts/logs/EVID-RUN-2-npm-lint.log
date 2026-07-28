@@ -1,0 +1,16 @@
+
+> jira-dashboard-poc@0.1.0 lint
+> npm run lint -w shared && npm run lint -w backend && npm run lint -w frontend
+
+
+> @demo/shared@0.1.0 lint
+> tsc -p tsconfig.json --noEmit
+
+
+> @demo/backend@0.1.0 lint
+> tsc -p tsconfig.json --noEmit
+
+
+> @demo/frontend@0.1.0 lint
+> tsc -p tsconfig.json --noEmit
+

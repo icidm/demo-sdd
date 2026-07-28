@@ -1,0 +1,20 @@
+schema_version: 1
+phase: functional-spec
+status: ready
+artifacts:
+  plan:
+    kind: plan
+    scope: session
+    path: plan.md
+  backlog:
+    kind: backlog
+    scope: session
+    path: backlog-plan.yml
+  primary-spec:
+    kind: spec
+    scope: session
+    path: specs/jira/jira-projects-dashboard-kpis/spec.md
+blocker_refs: []
+specs:
+- artifact: primary-spec
+  relation: primary
