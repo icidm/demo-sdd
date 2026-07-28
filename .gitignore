@@ -1,0 +1,27 @@
+# --- aicontext generated files (start) ---
+# GitHub Copilot VS Code
+.github/instructions
+.github/skills
+.github/prompts
+.github/copilot-memory
+.github/agents
+.vscode/mcp.json
+
+# GitHub Copilot CLI
+.mcp.json
+
+# Claude Code
+.claude/rules
+.claude/skills
+.claude/commands
+.claude/agents
+
+# OpenCode
+.opencode/instructions
+.opencode/skills
+.opencode/commands
+.opencode/agents
+.opencode/opencode.json
+
+
+# --- aicontext generated files (end) ---
