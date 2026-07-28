@@ -1,0 +1,67 @@
+.gitignore
+  s_7767d49aa82683::t_d22eaedba3aa9f 1-11
+deliverables/sdd/sessions/20260727-jira-dashboard-poc/backlog-plan.yml
+  s_0d075cd0278887::t_9827ea5c344b0b 1-23
+deliverables/sdd/sessions/20260727-jira-dashboard-poc/code.md
+  s_0d075cd0278887::t_c39eb6f8cb2200 1-91
+deliverables/sdd/sessions/20260727-jira-dashboard-poc/delegations/spec-verification-round-1-questions.md
+  s_0d075cd0278887::t_55ea248435dad3 1-98
+deliverables/sdd/sessions/20260727-jira-dashboard-poc/handoffs/functional-spec-handoff.yml
+  s_0d075cd0278887::t_13f808a3299fb2 1-20
+deliverables/sdd/sessions/20260727-jira-dashboard-poc/handoffs/implementation-handoff.yml
+  s_0d075cd0278887::t_072d9d31947ee7 1-9
+deliverables/sdd/sessions/20260727-jira-dashboard-poc/handoffs/requests/.functional-spec.base.md
+  s_0d075cd0278887::t_ac1fce1e3d6efd 1-51
+deliverables/sdd/sessions/20260727-jira-dashboard-poc/handoffs/requests/functional-spec.md
+  s_0d075cd0278887::t_9e4a467a00f604 1-51
+deliverables/sdd/sessions/20260727-jira-dashboard-poc/handoffs/spec-verification-handoff.yml
+  s_0d075cd0278887::t_073e8814546772 1-9
+deliverables/sdd/sessions/20260727-jira-dashboard-poc/handoffs/technical-plan-handoff.yml
+  s_0d075cd0278887::t_9a7fbea4380d07 1-9
+deliverables/sdd/sessions/20260727-jira-dashboard-poc/plan.md
+  s_0d075cd0278887::t_dbb3ed611b4f9e 1-99
+deliverables/sdd/sessions/20260727-jira-dashboard-poc/sdd-state.yml
+  s_0d075cd0278887::t_580aaac294f7d8 1-177
+deliverables/sdd/sessions/20260727-jira-dashboard-poc/spec-drafts/jira-projects-dashboard-kpis.md
+  s_0d075cd0278887::t_fdd99e1671b85d 1-30
+deliverables/sdd/sessions/20260727-jira-dashboard-poc/specs/jira/jira-projects-dashboard-kpis/spec.md
+  s_0d075cd0278887::t_a657685b3538ae 1-46
+deliverables/sdd/sessions/20260727-jira-dashboard-poc/tech-plan.md
+  s_0d075cd0278887::t_79c172380d4666 1-313
+deliverables/sdd/sessions/20260727-jira-dashboard-poc/trace.md
+  s_0d075cd0278887::t_5b54ad1eca9dac 1-80
+deliverables/sdd/sessions/20260727-jira-dashboard-poc/verification.md
+  s_0d075cd0278887::t_20fa3d349728d3 1-239
+deliverables/sdd/sessions/20260727-jira-dashboard-poc/verification_artifacts/logs/EVID-RUN-1-npm-build.log
+  s_0d075cd0278887::t_69c1dd7ad55064 1-16
+deliverables/sdd/sessions/20260727-jira-dashboard-poc/verification_artifacts/logs/EVID-RUN-2-npm-lint.log
+  s_0d075cd0278887::t_f6a6c705bff954 1-16
+deliverables/sdd/sessions/20260727-jira-dashboard-poc/verification_artifacts/logs/EVID-TEST-1-npm-test.log
+  s_0d075cd0278887::t_277cd550ea25b7 1-50
+manifest.yaml
+  s_0d075cd0278887::t_1b50cd2d9df47a 1-95
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "8dd696dd28f8af34b967b93cd26497fd2fa38f93",
+  "prompts": {},
+  "sessions": {
+    "s_0d075cd0278887": {
+      "agent_id": {
+        "tool": "github-copilot",
+        "id": "8cf6049b-6404-4f72-bcb1-d6ee4072a984",
+        "model": "gpt-5.3-codex"
+      },
+      "human_author": "Iago Cid Martínez <iagocmar@ext.inditex.com>"
+    },
+    "s_7767d49aa82683": {
+      "agent_id": {
+        "tool": "github-copilot",
+        "id": "596cff87-d13e-49f5-85f9-cb1a335973a7",
+        "model": "gpt-5.3-codex"
+      },
+      "human_author": "Iago Cid Martínez <iagocmar@ext.inditex.com>"
+    }
+  }
+}
