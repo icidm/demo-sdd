@@ -25,3 +25,13 @@
 
 
 # --- aicontext generated files (end) ---
+
+# Secrets
+.env
+.env.*
+**/.env
+**/.env.*
+
+# Dependencies and build output
+node_modules/
+dist/
