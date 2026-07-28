@@ -10,16 +10,21 @@ type Props = {
   client?: DashboardClient;
 };
 
-export const DashboardPage = ({ client = new DashboardClient(fetch) }: Props) => {
-  const { filters, setFilters } = useFilters();
+export const DashboardPage = ({ client }: Props) => {
+  const { filters } = useFilters();
   const [response, setResponse] = useState<DashboardResponse | null>(null);
   const [loading, setLoading] = useState(false);
+
+  // Create client inside useMemo to avoid recreation on every render
+  const memoizedClient = useMemo(() => {
+    return client || new DashboardClient((url, init) => fetch(url, init));
+  }, [client]);
 
   useEffect(() => {
     let mounted = true;
     const run = async () => {
       setLoading(true);
-      const next = await client.load(filters);
+      const next = await memoizedClient.load(filters);
       if (mounted) {
         setResponse(next);
         setLoading(false);
@@ -29,44 +34,27 @@ export const DashboardPage = ({ client = new DashboardClient(fetch) }: Props) =>
     return () => {
       mounted = false;
     };
-  }, [client, filters]);
-
-  const projectValue = useMemo(() => filters.projects.join(","), [filters.projects]);
+  }, [memoizedClient, filters]);
 
   return (
-    <main className="dashboard-shell">
-      <h1>Jira Projects Dashboard</h1>
-      <label htmlFor="projects">Projects</label>
-      <input
-        id="projects"
-        value={projectValue}
-        onChange={(event) => {
-          const projects = event.target.value
-            .split(",")
-            .map((value) => value.trim())
-            .filter(Boolean);
-          setFilters({ ...filters, projects });
-        }}
-      />
-
+    <div className="dashboard-shell">
       {loading ? <p>Loading...</p> : null}
 
       {response?.status === "dependency-unavailable" ? (
-        <section role="status">
+        <section role="status" style={{ padding: '1rem', border: '1px solid var(--ids-color-border)', borderRadius: 'var(--ids-border-radius-lg)', marginBottom: '2rem', backgroundColor: 'var(--ids-color-bg-warning)' }}>
           <p>Jira MCP unavailable</p>
-          {response.fallbackPayload ? <p>Showing snapshot fallback (stale)</p> : null}
+          <p>{response.message}</p>
         </section>
       ) : null}
 
       {response?.status === "ok" ? (
         <>
-          <p>
-            Freshness: {response.payload.freshness.state} ({response.payload.freshness.source})
-          </p>
           <KpiPanels projects={response.payload.projects} />
-          <ComparisonPanel aggregate={response.payload.aggregate} />
+          <ComparisonPanel aggregate={response.payload.aggregate} projects={response.payload.projects} />
         </>
       ) : null}
-    </main>
+    </div>
   );
 };
+
+export default DashboardPage;

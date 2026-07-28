@@ -1,26 +1,50 @@
-import { fireEvent, render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
-import { FilterProvider } from "../src/context/filter-context";
-import { DashboardPage } from "../src/pages/dashboard-page";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { FilterProvider, useFilters } from "../src/context/filter-context";
+import { ProjectSelector } from "../src/components/project-selector";
+
+// Renders the current filters so the test can assert context updates without
+// depending on DashboardPage, which no longer owns project selection UI.
+const FiltersProbe = () => {
+  const { filters } = useFilters();
+  return <span data-testid="projects-probe">{filters.projects.join(",")}</span>;
+};
 
 describe("filter_context", () => {
-  it("updates_filters_from_shared_context", async () => {
-    const client = {
-      load: async () => ({
-        status: "invalid-filter" as const,
-        message: "x",
-        fallbackPayload: null
-      })
-    };
+  beforeEach(() => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async () => ({
+        ok: true,
+        json: async () => ({
+          projects: [
+            { key: "A", name: "Project A" },
+            { key: "B", name: "Project B" }
+          ]
+        })
+      }))
+    );
+  });
 
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  it("updates_filters_from_shared_context", async () => {
     render(
       <FilterProvider>
-        <DashboardPage client={client as never} />
+        <ProjectSelector />
+        <FiltersProbe />
       </FilterProvider>
     );
 
-    const input = screen.getByLabelText("Projects") as HTMLInputElement;
-    fireEvent.change(input, { target: { value: "A,B" } });
-    expect(input.value).toBe("A,B");
+    const input = (await screen.findByLabelText("Search or select project")) as HTMLInputElement;
+    await waitFor(() => expect(input).not.toBeDisabled());
+
+    fireEvent.focus(input);
+    fireEvent.change(input, { target: { value: "Project B" } });
+    fireEvent.click(await screen.findByText("Project B"));
+
+    await waitFor(() => expect(screen.getByTestId("projects-probe").textContent).toBe("B"));
   });
 });

@@ -10,16 +10,17 @@ describe("kpi_panels", () => {
           {
             projectKey: "A",
             flow: {
-              throughput: { value: 10, state: "ok", unit: "count" },
+              totalIssues: { value: 12, state: "ok", unit: "count" },
+              completedIssues: { value: 10, state: "ok", unit: "count" },
               cycleTimeDays: { value: 2.5, state: "ok", unit: "days" }
             },
-            predictability: {
-              commitmentReliability: { value: 0.8, state: "ok", unit: "ratio" },
-              spilloverRate: { value: 0.2, state: "ok", unit: "ratio" }
+            backlogHealth: {
+              completionRate: { value: 0.8, state: "ok", unit: "ratio" },
+              avgOpenAgeDays: { value: 3, state: "ok", unit: "days" }
             },
             quality: {
               defectRate: { value: 0.1, state: "ok", unit: "ratio" },
-              reopenRate: { value: 0.02, state: "ok", unit: "ratio" }
+              unassignedRate: { value: 0.02, state: "ok", unit: "ratio" }
             },
             partialData: true,
             notes: ["Missing source field"]
@@ -29,6 +30,6 @@ describe("kpi_panels", () => {
     );
 
     expect(screen.getByTestId("kpi-A")).toBeInTheDocument();
-    expect(screen.getByText("Partial data")).toBeInTheDocument();
+    expect(screen.getByText("⚠️ Partial data - Some issues may be missing")).toBeInTheDocument();
   });
 });

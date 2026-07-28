@@ -4,7 +4,7 @@ import { FilterProvider } from "../src/context/filter-context";
 import { DashboardPage } from "../src/pages/dashboard-page";
 
 describe("dashboard_page", () => {
-  it("renders_freshness_and_panels_when_response_ok", async () => {
+  it("renders_panels_when_response_ok", async () => {
     const client = {
       load: async () => ({
         status: "ok" as const,
@@ -17,16 +17,17 @@ describe("dashboard_page", () => {
             {
               projectKey: "A",
               flow: {
-                throughput: { value: 1, state: "ok" as const, unit: "count" as const },
+                totalIssues: { value: 1, state: "ok" as const, unit: "count" as const },
+                completedIssues: { value: 1, state: "ok" as const, unit: "count" as const },
                 cycleTimeDays: { value: 2, state: "ok" as const, unit: "days" as const }
               },
-              predictability: {
-                commitmentReliability: { value: 1, state: "ok" as const, unit: "ratio" as const },
-                spilloverRate: { value: 0, state: "ok" as const, unit: "ratio" as const }
+              backlogHealth: {
+                completionRate: { value: 1, state: "ok" as const, unit: "ratio" as const },
+                avgOpenAgeDays: { value: null, state: "insufficient-data" as const, unit: "days" as const }
               },
               quality: {
                 defectRate: { value: 0, state: "ok" as const, unit: "ratio" as const },
-                reopenRate: { value: 0, state: "ok" as const, unit: "ratio" as const }
+                unassignedRate: { value: 0, state: "ok" as const, unit: "ratio" as const }
               },
               partialData: false,
               notes: []
@@ -53,7 +54,7 @@ describe("dashboard_page", () => {
       </FilterProvider>
     );
 
-    await waitFor(() => expect(screen.getByText(/Freshness: fresh/)).toBeInTheDocument());
+    await waitFor(() => expect(screen.getByTestId("kpi-A")).toBeInTheDocument());
   });
 
   it("renders_dependency_unavailable_fallback_message", async () => {
