@@ -1,0 +1,97 @@
+.tool-versions
+  s_0d075cd0278887::t_77c4b51f64e283 1
+ARCHITECTURE.md
+  s_0d075cd0278887::t_f8a38e735101b0 1-13
+HARDENING-NOTES.md
+  s_0d075cd0278887::t_37f92a7556e0b7 1-8
+backend/ENDPOINTS.md
+  s_0d075cd0278887::t_d80a901de51593 1-16
+backend/package.json
+  s_0d075cd0278887::t_3a8ddf240a651f 1-13
+backend/src/api/dashboard-controller.ts
+  s_0d075cd0278887::t_d324639d547cb2 1-10
+backend/src/domain/kpi-engine.ts
+  s_0d075cd0278887::t_810638970cb31f 1-109
+backend/src/index.ts
+  s_0d075cd0278887::t_8a8ce47e334b9c 1-4
+backend/src/jira/client.ts
+  s_0d075cd0278887::t_7a998d36b121f8 1-6
+backend/src/jira/normalize.ts
+  s_0d075cd0278887::t_167e81b276bdc4 1-30
+backend/src/jira/types.ts
+  s_0d075cd0278887::t_113a4e433add00 1-18
+backend/src/jira/validate-filters.ts
+  s_0d075cd0278887::t_cd40feefc9fccd 1-19
+backend/src/persistence/snapshot-repository.ts
+  s_0d075cd0278887::t_d1f53aecab8db6 1-25
+backend/src/service/dashboard-service.ts
+  s_0d075cd0278887::t_5c9e9ae8f860d6 1-80
+backend/test/dashboard-controller.test.ts
+  s_0d075cd0278887::t_9315854dd0e75c 1-18
+backend/test/dashboard-service.test.ts
+  s_0d075cd0278887::t_72741e6eed3409 1-94
+backend/test/kpi-engine.test.ts
+  s_0d075cd0278887::t_f217fe7bd01ca9 1-51
+backend/tsconfig.json
+  s_0d075cd0278887::t_7644ce06daabc7 1-14
+frontend/package.json
+  s_0d075cd0278887::t_10d6ddae84769c 1-22
+frontend/src/api/dashboard-client.ts
+  s_0d075cd0278887::t_82dfff9bad9eea 1-25
+frontend/src/components/comparison-panel.tsx
+  s_0d075cd0278887::t_d9c9ee9baa80fb 1-12
+frontend/src/components/kpi-panels.tsx
+  s_0d075cd0278887::t_786e642ed2a1ce 1-32
+frontend/src/context/filter-context.tsx
+  s_0d075cd0278887::t_d35083e28deefd 1-28
+frontend/src/pages/dashboard-page.tsx
+  s_0d075cd0278887::t_7b58c663c2e8c6 1-72
+frontend/src/routes.tsx
+  s_0d075cd0278887::t_86b67149f55655 1-11
+frontend/src/styles/dashboard.css
+  s_0d075cd0278887::t_1519daf0fa553c 1-16
+frontend/test/dashboard-page.test.tsx
+  s_0d075cd0278887::t_7a67949775d319 1-76
+frontend/test/filter-context.test.tsx
+  s_0d075cd0278887::t_143dde60b6afaf 1-26
+frontend/test/kpi-panels.test.tsx
+  s_0d075cd0278887::t_f2296a3d03fd40 1-34
+frontend/test/setup.ts
+  s_0d075cd0278887::t_cb140feda399fa 1
+frontend/tsconfig.json
+  s_0d075cd0278887::t_4201ea429768da 1-15
+frontend/vitest.config.ts
+  s_0d075cd0278887::t_5d7f38fbe11d77 1-8
+package-lock.json
+  s_0d075cd0278887::t_0e1976dee5cc64 1-2630
+package.json
+  s_0d075cd0278887::t_ee6545b9024e57 1-20
+shared/package.json
+  s_0d075cd0278887::t_87b2049c6147a4 1-12
+shared/src/contracts.ts
+  s_0d075cd0278887::t_d6c1ecdfc7b40d 1-64
+shared/src/index.ts
+  s_0d075cd0278887::t_624924e4e7d71a 1
+shared/test/contracts.test.ts
+  s_0d075cd0278887::t_4c437bbd1441c9 1-28
+shared/tsconfig.json
+  s_0d075cd0278887::t_f9f8886e0d7551 1-10
+tsconfig.base.json
+  s_0d075cd0278887::t_a3938c442f6e42 1-22
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "083a7da1d7bc5e90a1f612ecf5180e8c713b784c",
+  "prompts": {},
+  "sessions": {
+    "s_0d075cd0278887": {
+      "agent_id": {
+        "tool": "github-copilot",
+        "id": "8cf6049b-6404-4f72-bcb1-d6ee4072a984",
+        "model": "gpt-5.3-codex"
+      },
+      "human_author": "Iago Cid Martínez <iagocmar@ext.inditex.com>"
+    }
+  }
+}
