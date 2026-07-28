@@ -1,0 +1,47 @@
+backend/package.json
+  s_0d075cd0278887::t_142dd5e849e492 6,12-22
+backend/src/jira/client.ts
+  s_0d075cd0278887::t_04709233b24486 5-6
+backend/src/server.ts
+  s_0d075cd0278887::t_ac985a014d2e1c 1-89
+package-lock.json
+  s_0d075cd0278887::t_a52ef7d807dd84 15-17,28-48,62,65-79,118-264,275-346,357-404,821-837,855-871,889-905,974-1017,1025-1028,1031-1034,1036-1099,1517-1582,1590-1629,1647-1660,1682-1735,1849-1886,1897-1929,1982-2090,2114-2150,2191-2194,2196-2285,2362-2370,2389-2400,2415-2436,2542-2557,2568-2597,2608-2737,2755-2772,2797-2806,2896-2904,2918-2937,2989-3012,3020-3040,3088-3125,3182-3185,3188-3192,3195-3220,3265-3283,3291-3332,3346-3373,3398-3406,3452-3464,3475-3534,3568-3577,3592-3600,3646-3661,3697-3875,3900-3908,4000-4008,4035-4546,4564-4612,4823-4837,4855-4860,4900-4924
+package.json
+  s_0d075cd0278887::t_bf6a008d47cb34 11-12,21-23
+shared/test/contracts.test.ts
+  s_0d075cd0278887::t_30b2345ddea927 19-20,25
+backend/src/domain/kpi-engine.ts
+  s_0d075cd0278887::t_ef496bbefe24d6 25-53,56,59-60,62,64,66-71,74-78,80-83,88-90,92-94,98,126
+backend/src/jira/mcp-jira-client.ts
+  s_0d075cd0278887::t_58280c8d113605 1-177
+backend/src/jira/normalize.ts
+  s_0d075cd0278887::t_ac998d124f41fd 3-11,13-14,16-23
+backend/src/jira/types.ts
+  s_0d075cd0278887::t_4be66322d6d10d 1-6,11-14,19,21,23
+backend/src/service/dashboard-service.ts
+  s_0d075cd0278887::t_dbe072f25d3dfe 8,20-24,31-35,38-39
+backend/test/dashboard-service.test.ts
+  s_0d075cd0278887::t_756e4e164b90e1 17,22,29,33-34,49-52,58
+backend/test/kpi-engine.test.ts
+  s_0d075cd0278887::t_5e3b8f8489675c 7,10,14,16,18-26,29-35,42,44,46,52,54,56
+backend/tsconfig.json
+  s_0d075cd0278887::t_824d0fdee45fb1 11
+shared/src/contracts.ts
+  s_0d075cd0278887::t_017af0fb6cdca1 17-23,27-28,31-33,37,51-52
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "1cf7c4f227cc6de22aedb6cf86773db2952ce4a2",
+  "prompts": {},
+  "sessions": {
+    "s_0d075cd0278887": {
+      "agent_id": {
+        "tool": "github-copilot",
+        "id": "8cf6049b-6404-4f72-bcb1-d6ee4072a984",
+        "model": "gpt-5.3-codex"
+      },
+      "human_author": "Iago Cid Martínez <iagocmar@ext.inditex.com>"
+    }
+  }
+}
