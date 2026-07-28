@@ -22,59 +22,80 @@ const average = (values: number[]): number | null => {
   return values.reduce((sum, value) => sum + value, 0) / values.length;
 };
 
+const zeroActivityGroup = (projectKey: string): ProjectKpiGroup => {
+  const unavailable = (unit: KpiValue["unit"]): KpiValue => ({ value: null, state: "zero-activity", unit });
+  return {
+    projectKey,
+    flow: {
+      totalIssues: unavailable("count"),
+      completedIssues: unavailable("count"),
+      cycleTimeDays: unavailable("days")
+    },
+    backlogHealth: {
+      completionRate: unavailable("ratio"),
+      avgOpenAgeDays: unavailable("days")
+    },
+    quality: {
+      defectRate: unavailable("ratio"),
+      unassignedRate: unavailable("ratio")
+    },
+    partialData: false,
+    notes: ["No activity in selected range."]
+  };
+};
+
+/**
+ * Computes KPIs from fields Jira populates on virtually every issue (status
+ * category, issue type, assignee, created/resolution dates) so every metric
+ * carries a real value whenever the project has at least one issue in range,
+ * instead of depending on optional agile concepts this Jira instance does
+ * not expose reliably (sprint commitment, reopen history).
+ */
 export const computeProjectKpis = (projectKey: string, issues: NormalizedIssue[]): ProjectKpiGroup => {
   if (issues.length === 0) {
-    const unavailable = { value: null, state: "zero-activity", unit: "count" } as KpiValue;
-    return {
-      projectKey,
-      flow: {
-        throughput: unavailable,
-        cycleTimeDays: { ...unavailable, unit: "days" }
-      },
-      predictability: {
-        commitmentReliability: { ...unavailable, unit: "ratio" },
-        spilloverRate: { ...unavailable, unit: "ratio" }
-      },
-      quality: {
-        defectRate: { ...unavailable, unit: "ratio" },
-        reopenRate: { ...unavailable, unit: "ratio" }
-      },
-      partialData: false,
-      notes: ["No activity in selected range."]
-    };
+    return zeroActivityGroup(projectKey);
   }
 
-  const completed = issues.filter((issue) => issue.completedInRange);
-  const committed = issues.filter((issue) => issue.committedInRange);
+  const completed = issues.filter((issue) => issue.isDone);
+  const open = issues.filter((issue) => !issue.isDone);
   const defects = issues.filter((issue) => issue.isDefect);
-  const reopened = issues.filter((issue) => issue.reopened);
+  const unassigned = issues.filter((issue) => !issue.hasAssignee);
   const cycleTimes = completed.map((issue) => issue.cycleTimeDays).filter((value): value is number => value !== null);
+  const openAges = open.map((issue) => issue.ageDays).filter((value): value is number => value !== null);
 
-  const throughput = completed.length;
-  const commitmentReliability = ratio(completed.length, committed.length);
-  const spilloverRate = ratio(Math.max(committed.length - completed.length, 0), committed.length);
-  const defectRate = ratio(defects.length, issues.length);
-  const reopenRate = ratio(reopened.length, completed.length);
+  const totalIssues = issues.length;
+  const completionRate = ratio(completed.length, totalIssues);
+  const defectRate = ratio(defects.length, totalIssues);
+  const unassignedRate = ratio(unassigned.length, totalIssues);
+  const avgCycleTime = average(cycleTimes);
+  const avgOpenAge = average(openAges);
 
   const notes: string[] = [];
-  const partialData = commitmentReliability === null || reopenRate === null;
-  if (partialData) {
-    notes.push("One or more KPIs are unavailable because source data is incomplete.");
+  if (avgCycleTime === null) {
+    notes.push("Cycle time is unavailable because no issues were completed in range.");
   }
+  if (avgOpenAge === null) {
+    notes.push("Open issue age is unavailable because every issue in range is already completed.");
+  }
+  // partialData flags a fetch problem (set by the caller when the live MCP
+  // call failed), not the normal case of an empty completed/open bucket —
+  // those are legitimate outcomes already conveyed per-metric via KpiValue.state.
+  const partialData = false;
 
   return {
     projectKey,
     flow: {
-      throughput: throughput === 0 ? { value: 0, state: "zero-activity", unit: "count" } : okValue(throughput, "count"),
-      cycleTimeDays: okValue(average(cycleTimes), "days")
+      totalIssues: okValue(totalIssues, "count"),
+      completedIssues: okValue(completed.length, "count"),
+      cycleTimeDays: okValue(avgCycleTime, "days")
     },
-    predictability: {
-      commitmentReliability: okValue(commitmentReliability, "ratio"),
-      spilloverRate: okValue(spilloverRate, "ratio")
+    backlogHealth: {
+      completionRate: okValue(completionRate, "ratio"),
+      avgOpenAgeDays: okValue(avgOpenAge, "days")
     },
     quality: {
       defectRate: okValue(defectRate, "ratio"),
-      reopenRate: okValue(reopenRate, "ratio")
+      unassignedRate: okValue(unassignedRate, "ratio")
     },
     partialData,
     notes
@@ -102,7 +123,7 @@ export const aggregateComparison = (projects: ProjectKpiGroup[]): AggregateCompa
   };
 
   return {
-    bestThroughputProject: bestBy((project) => project.flow.throughput.value, "max"),
+    bestThroughputProject: bestBy((project) => project.flow.completedIssues.value, "max"),
     bestCycleTimeProject: bestBy((project) => project.flow.cycleTimeDays.value, "min"),
     bestQualityProject: bestBy((project) => project.quality.defectRate.value, "min")
   };

@@ -3,13 +3,9 @@ import { aggregateComparison, computeProjectKpis } from "../domain/kpi-engine";
 import type { JiraMcpClient } from "../jira/client";
 import { normalizeIssues } from "../jira/normalize";
 import { validateFilters } from "../jira/validate-filters";
-import type { SnapshotRepository } from "../persistence/snapshot-repository";
 
 export class DashboardService {
-  constructor(
-    private readonly jiraClient: JiraMcpClient,
-    private readonly snapshotRepository: SnapshotRepository
-  ) {}
+  constructor(private readonly jiraClient: JiraMcpClient) {}
 
   async getDashboard(filters: DashboardFilters): Promise<DashboardResponse> {
     const validationError = validateFilters(filters);
@@ -21,27 +17,26 @@ export class DashboardService {
       filters.projects.map(async (projectKey) => {
         try {
           const issues = await this.jiraClient.fetchProjectIssues(projectKey, filters);
-          const normalized = normalizeIssues(issues, filters);
-          return { projectKey, normalized, failed: false };
-        } catch {
-          return { projectKey, normalized: [], failed: true };
+          const normalized = normalizeIssues(issues);
+          return { projectKey, normalized, failed: false, error: null as Error | null };
+        } catch (error) {
+          console.error(`[DashboardService] Failed to fetch live Jira data for ${projectKey}:`, error);
+          return { projectKey, normalized: [], failed: true, error: error as Error };
         }
       })
     );
 
     const allFailed = projectResults.every((result) => result.failed);
     if (allFailed) {
-      const fallback = await this.snapshotRepository.load();
+      // No fallback to stale/snapshot data: the user must see the truth that
+      // live Jira MCP data could not be retrieved, never a substitute payload.
+      const detail = projectResults
+        .map((result) => `${result.projectKey}: ${result.error?.message ?? "unknown error"}`)
+        .join("; ");
       return {
         status: "dependency-unavailable",
-        message: "Jira MCP is unavailable.",
-        fallbackPayload: fallback
-          ? {
-              ...fallback,
-              freshness: { ...fallback.freshness, state: "stale", source: "snapshot" },
-              dependencyUnavailable: true
-            }
-          : null
+        message: `Jira MCP is unavailable. ${detail}`,
+        fallbackPayload: null
       };
     }
 
@@ -68,12 +63,6 @@ export class DashboardService {
       },
       dependencyUnavailable: projectResults.some((result) => result.failed)
     };
-
-    try {
-      await this.snapshotRepository.save(payload);
-    } catch {
-      // Snapshot persistence is best-effort for PoC continuity.
-    }
 
     return { status: "ok", payload };
   }

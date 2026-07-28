@@ -14,19 +14,27 @@ export type KpiValue = {
   unit: "count" | "ratio" | "days";
 };
 
+/**
+ * KPIs derived only from Jira fields that are populated on virtually every
+ * issue (created, status category, issue type, assignee, resolution date),
+ * so they carry real values in the vast majority of projects/date ranges
+ * instead of depending on optional agile concepts (sprint commitment,
+ * reopen history) that this Jira instance does not expose reliably.
+ */
 export type ProjectKpiGroup = {
   projectKey: string;
   flow: {
-    throughput: KpiValue;
+    totalIssues: KpiValue;
+    completedIssues: KpiValue;
     cycleTimeDays: KpiValue;
   };
-  predictability: {
-    commitmentReliability: KpiValue;
-    spilloverRate: KpiValue;
+  backlogHealth: {
+    completionRate: KpiValue;
+    avgOpenAgeDays: KpiValue;
   };
   quality: {
     defectRate: KpiValue;
-    reopenRate: KpiValue;
+    unassignedRate: KpiValue;
   };
   partialData: boolean;
   notes: string[];
@@ -40,8 +48,8 @@ export type AggregateComparison = {
 
 export type DataFreshness = {
   refreshedAt: string | null;
-  state: "fresh" | "stale";
-  source: "jira-mcp" | "snapshot";
+  state: "fresh";
+  source: "jira-mcp";
 };
 
 export type DashboardPayload = {

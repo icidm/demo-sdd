@@ -2,7 +2,6 @@ import { describe, expect, it } from "vitest";
 import type { DashboardFilters } from "@demo/shared";
 import { DashboardService } from "../src/service/dashboard-service";
 import type { JiraMcpClient } from "../src/jira/client";
-import type { SnapshotRepository } from "../src/persistence/snapshot-repository";
 
 const filters: DashboardFilters = {
   projects: ["A", "B"],
@@ -14,48 +13,25 @@ describe("dashboard_service", () => {
     const jiraClient: JiraMcpClient = {
       fetchProjectIssues: async () => []
     };
-    const snapshotRepository: SnapshotRepository = {
-      save: async () => undefined,
-      load: async () => null
-    };
 
-    const service = new DashboardService(jiraClient, snapshotRepository);
+    const service = new DashboardService(jiraClient);
     const result = await service.getDashboard({ ...filters, projects: [] });
     expect(result.status).toBe("invalid-filter");
   });
 
-  it("returns_dependency_unavailable_with_snapshot_fallback", async () => {
+  it("returns_dependency_unavailable_with_no_fallback_payload_when_all_projects_fail", async () => {
     const jiraClient: JiraMcpClient = {
       fetchProjectIssues: async () => {
         throw new Error("dependency down");
       }
     };
 
-    const snapshotRepository: SnapshotRepository = {
-      save: async () => undefined,
-      load: async () => ({
-        filters,
-        projects: [],
-        aggregate: {
-          bestCycleTimeProject: null,
-          bestQualityProject: null,
-          bestThroughputProject: null
-        },
-        freshness: {
-          refreshedAt: "2026-07-15T00:00:00.000Z",
-          source: "snapshot",
-          state: "stale"
-        },
-        dependencyUnavailable: false
-      })
-    };
-
-    const service = new DashboardService(jiraClient, snapshotRepository);
+    const service = new DashboardService(jiraClient);
     const result = await service.getDashboard(filters);
     expect(result.status).toBe("dependency-unavailable");
     if (result.status === "dependency-unavailable") {
-      expect(result.fallbackPayload?.freshness.source).toBe("snapshot");
-      expect(result.fallbackPayload?.dependencyUnavailable).toBe(true);
+      expect(result.fallbackPayload).toBeNull();
+      expect(result.message).toContain("dependency down");
     }
   });
 
@@ -70,20 +46,16 @@ describe("dashboard_service", () => {
             key: "A-1",
             projectKey: "A",
             createdAt: "2026-07-10T00:00:00.000Z",
-            doneAt: "2026-07-12T00:00:00.000Z",
-            reopened: false,
-            isDefect: false,
-            committedInRange: true
+            resolvedAt: "2026-07-12T00:00:00.000Z",
+            isDone: true,
+            issueTypeName: "Historia",
+            hasAssignee: true
           }
         ];
       }
     };
-    const snapshotRepository: SnapshotRepository = {
-      save: async () => undefined,
-      load: async () => null
-    };
 
-    const service = new DashboardService(jiraClient, snapshotRepository);
+    const service = new DashboardService(jiraClient);
     const result = await service.getDashboard(filters);
     expect(result.status).toBe("ok");
     if (result.status === "ok") {

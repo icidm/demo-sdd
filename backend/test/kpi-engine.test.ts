@@ -4,43 +4,56 @@ import { aggregateComparison, computeProjectKpis } from "../src/domain/kpi-engin
 describe("kpi_engine", () => {
   it("computes_zero_activity_state", () => {
     const group = computeProjectKpis("A", []);
-    expect(group.flow.throughput.state).toBe("zero-activity");
+    expect(group.flow.totalIssues.state).toBe("zero-activity");
   });
 
-  it("computes_insufficient_data_for_missing_commitment", () => {
+  it("computes_completion_rate_and_defect_rate_from_real_fields", () => {
     const group = computeProjectKpis("A", [
       {
         projectKey: "A",
+        isDone: true,
         cycleTimeDays: 2,
-        reopened: false,
+        ageDays: null,
         isDefect: false,
-        committedInRange: false,
-        completedInRange: true
+        hasAssignee: true
+      },
+      {
+        projectKey: "A",
+        isDone: false,
+        cycleTimeDays: null,
+        ageDays: 5,
+        isDefect: true,
+        hasAssignee: false
       }
     ]);
-    expect(group.predictability.commitmentReliability.state).toBe("insufficient-data");
-    expect(group.partialData).toBe(true);
+    expect(group.flow.totalIssues.value).toBe(2);
+    expect(group.flow.completedIssues.value).toBe(1);
+    expect(group.backlogHealth.completionRate.value).toBe(0.5);
+    expect(group.backlogHealth.avgOpenAgeDays.value).toBe(5);
+    expect(group.quality.defectRate.value).toBe(0.5);
+    expect(group.quality.unassignedRate.value).toBe(0.5);
+    expect(group.partialData).toBe(false);
   });
 
   it("aggregates_best_projects", () => {
     const a = computeProjectKpis("A", [
       {
         projectKey: "A",
+        isDone: true,
         cycleTimeDays: 1,
-        reopened: false,
+        ageDays: null,
         isDefect: false,
-        committedInRange: true,
-        completedInRange: true
+        hasAssignee: true
       }
     ]);
     const b = computeProjectKpis("B", [
       {
         projectKey: "B",
+        isDone: true,
         cycleTimeDays: 4,
-        reopened: true,
+        ageDays: null,
         isDefect: true,
-        committedInRange: true,
-        completedInRange: true
+        hasAssignee: true
       }
     ]);
     const aggregate = aggregateComparison([a, b]);

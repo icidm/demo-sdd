@@ -16,13 +16,13 @@ describe("shared_contracts", () => {
       },
       freshness: {
         refreshedAt: null,
-        state: "stale",
-        source: "snapshot"
+        state: "fresh",
+        source: "jira-mcp"
       },
       dependencyUnavailable: true
     };
 
-    expect(payload.freshness.state).toBe("stale");
+    expect(payload.freshness.state).toBe("fresh");
     expect(payload.filters.projects.length).toBe(1);
   });
 });

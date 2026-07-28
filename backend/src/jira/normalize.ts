@@ -1,30 +1,24 @@
-import type { DashboardFilters } from "@demo/shared";
 import type { JiraIssue, NormalizedIssue } from "./types";
 
-const isInRange = (date: string | null, filters: DashboardFilters): boolean => {
-  if (!date) {
-    return false;
-  }
-  const value = Date.parse(date);
-  const from = Date.parse(filters.dateRange.from);
-  const to = Date.parse(filters.dateRange.to);
-  return value >= from && value <= to;
-};
+// Issue type names that represent defects across locales used in this Jira
+// instance (Spanish "Incidencia" is the actual defect type name here).
+const DEFECT_TYPE_NAMES = ["incidencia", "bug", "defect", "error"];
 
-export const normalizeIssues = (issues: JiraIssue[], filters: DashboardFilters): NormalizedIssue[] => {
-  return issues.map((issue) => {
-    const completedInRange = isInRange(issue.doneAt, filters);
-    const cycleTimeDays = issue.doneAt
-      ? Math.max(0, (Date.parse(issue.doneAt) - Date.parse(issue.createdAt)) / (1000 * 60 * 60 * 24))
-      : null;
+const isDefectType = (issueTypeName: string): boolean =>
+  DEFECT_TYPE_NAMES.some((name) => issueTypeName.toLowerCase().includes(name));
 
-    return {
-      projectKey: issue.projectKey,
-      cycleTimeDays,
-      reopened: issue.reopened,
-      isDefect: issue.isDefect,
-      committedInRange: issue.committedInRange,
-      completedInRange
-    };
-  });
+const daysBetween = (fromIso: string, toIso: string): number =>
+  Math.max(0, (Date.parse(toIso) - Date.parse(fromIso)) / (1000 * 60 * 60 * 24));
+
+export const normalizeIssues = (issues: JiraIssue[]): NormalizedIssue[] => {
+  const now = new Date().toISOString();
+
+  return issues.map((issue) => ({
+    projectKey: issue.projectKey,
+    isDone: issue.isDone,
+    cycleTimeDays: issue.isDone && issue.resolvedAt ? daysBetween(issue.createdAt, issue.resolvedAt) : null,
+    ageDays: issue.isDone ? null : daysBetween(issue.createdAt, now),
+    isDefect: isDefectType(issue.issueTypeName),
+    hasAssignee: issue.hasAssignee
+  }));
 };
