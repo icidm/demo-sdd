@@ -26,6 +26,10 @@
 
 # --- aicontext generated files (end) ---
 
+# aicontext internals (managed via the dedicated 'aicontext' branch, synced
+# with 'aicontext config push/pull/sync')
+.aicontext/
+
 # Secrets
 .env
 .env.*
