@@ -1,0 +1,41 @@
+frontend/src/App.tsx
+  s_0d075cd0278887::t_22f6fe89727962 1-30
+frontend/src/components/project-selector.tsx
+  s_0d075cd0278887::t_40d3e444f6074c 1-139
+frontend/src/routes.tsx
+  s_0d075cd0278887::t_d5786d4c2152d6 2
+frontend/src/styles/dashboard.css
+  s_0d075cd0278887::t_16b8809a02a6e2 1-9,11-326,328-504,506-508,511-593
+frontend/test/filter-context.test.tsx
+  s_0d075cd0278887::t_e816f82a54925b 1-11,14-27,29-33,36-37,41-48
+frontend/package.json
+  s_0d075cd0278887::t_8cbab2702d2b0a 6-8,20,23-27
+frontend/src/components/comparison-panel.tsx
+  s_0d075cd0278887::t_1fd75b9f739972 1-27,30-108
+frontend/src/components/kpi-panels.tsx
+  s_0d075cd0278887::t_bc146effb82f0e 14-27,34-88
+frontend/src/pages/dashboard-page.tsx
+  s_0d075cd0278887::t_b68c8a74fa4af6 13-14,18-22,27,37,40,44,46,53,56,59-60
+frontend/test/dashboard-page.test.tsx
+  s_0d075cd0278887::t_1d063faad1c174 7,20-21,24-26,30,57
+frontend/test/kpi-panels.test.tsx
+  s_0d075cd0278887::t_f7cb4762b7d4c7 13-14,17-19,23,33
+frontend/tsconfig.json
+  s_0d075cd0278887::t_88dec029287b7d 12
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "1797aec9483cea40154b4b6bf27f8a2a24431b84",
+  "prompts": {},
+  "sessions": {
+    "s_0d075cd0278887": {
+      "agent_id": {
+        "tool": "github-copilot",
+        "id": "8cf6049b-6404-4f72-bcb1-d6ee4072a984",
+        "model": "gpt-5.3-codex"
+      },
+      "human_author": "Iago Cid Martínez <iagocmar@ext.inditex.com>"
+    }
+  }
+}
