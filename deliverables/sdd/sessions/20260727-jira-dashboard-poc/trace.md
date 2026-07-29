@@ -11,7 +11,7 @@
 |---|---|
 | Session | 20260727-jira-dashboard-poc |
 | Track | complex |
-| Source spec | specs/jira/jira-projects-dashboard-kpis/spec.md |
+| Source spec | workspace:.aicontext/deliverables/sdd/specs/jira/jira-projects-dashboard-kpis/spec.md |
 | Current phase | retro |
 
 ## Input Contract Trace
@@ -24,12 +24,10 @@
 
 | AC ID | Acceptance Criterion | Source Spec | Notes |
 |---|---|---|---|
-| AC-1 | Given a user selects at least two Jira projects and a valid date range, when the dashboard loads data, then it displays KPI groups for delivery flow, predictability, and quality for each selected project and an aggregated comparison view. | specs/jira/jira-projects-dashboard-kpis/spec.md | Derived from source spec. |
-| AC-2 | Given dashboard data is retrieved, when KPIs are rendered, then all KPI values are sourced from Jira MCP responses and no alternate data source is used. | specs/jira/jira-projects-dashboard-kpis/spec.md | Derived from source spec. |
-| AC-3 | Given a successful data refresh, when backend state is persisted, then a JSON snapshot is stored and can be reused to render the latest known dashboard state on the next load. | specs/jira/jira-projects-dashboard-kpis/spec.md | Derived from source spec. **DEVIATED (2026-07-28)**: snapshot persistence adapter removed at explicit user request; no fallback path remains. Verified `pass` in verification.md is now stale for current code on `feature/jira-dashboard-poc`. |
-| AC-4 | Given a user changes project or date filters, when the dashboard recalculates metrics, then all visible KPI panels update consistently under the same filter context. | specs/jira/jira-projects-dashboard-kpis/spec.md | Derived from source spec. |
-| AC-5 | Given the UI is displayed, when users navigate KPI groups and comparisons, then layout, components, and interaction patterns follow Inditex Amiga Web and IOP DS conventions. | specs/jira/jira-projects-dashboard-kpis/spec.md | Derived from source spec. |
-| AC-6 | Given data was last refreshed at a known timestamp, when the dashboard is visible, then the user can see the freshness timestamp and distinguish fresh versus stale data. | specs/jira/jira-projects-dashboard-kpis/spec.md | Derived from source spec. **DEVIATED (2026-07-28)**: freshness UI text removed at explicit user request; `freshness` data is still computed/returned by the backend but no longer rendered. Verified `pass` in verification.md is now stale for current code on `feature/jira-dashboard-poc`. |
+| AC-1 | Given a user selects at least two Jira projects and a valid date range, when the dashboard loads data, then it displays KPI groups for delivery flow, predictability, and quality for each selected project and an aggregated comparison view. | workspace:.aicontext/deliverables/sdd/specs/jira/jira-projects-dashboard-kpis/spec.md | Derived from source spec. |
+| AC-2 | Given dashboard data is retrieved, when KPIs are rendered, then all KPI values are sourced from Jira MCP responses and no alternate data source is used. | workspace:.aicontext/deliverables/sdd/specs/jira/jira-projects-dashboard-kpis/spec.md | Derived from source spec. |
+| AC-4 | Given a user changes project or date filters, when the dashboard recalculates metrics, then all visible KPI panels update consistently under the same filter context. | workspace:.aicontext/deliverables/sdd/specs/jira/jira-projects-dashboard-kpis/spec.md | Derived from source spec. |
+| AC-5 | Given the UI is displayed, when users navigate KPI groups and comparisons, then layout, components, and interaction patterns follow Inditex Amiga Web and IOP DS conventions. | workspace:.aicontext/deliverables/sdd/specs/jira/jira-projects-dashboard-kpis/spec.md | Derived from source spec. |
 
 ## Backlog Trace
 
@@ -68,10 +66,10 @@
 |---|---|---|---|
 | AC-1 | EVID-CODE-2, EVID-CODE-3, EVID-TEST-1 | pass | Backend implements multi-project KPI computation with aggregation (Task 3, 5); frontend implements KPI group panels and comparison rendering (Task 7, EVID-CODE-3). Integration tests verify end-to-end KPI loading and display under multi-project context (backend/test/dashboard-service.test.ts). All tests pass. |
 | AC-2 | EVID-CODE-2, EVID-TEST-1 | pass | Backend Jira ingestion service (backend/src/jira/*) enforces Jira MCP as exclusive source with no alternate-source fallback paths at ingestion layer (Task 2). Filter validation rejects invalid inputs before MCP queries. Unit tests verify ingestion behavior and malformed payload handling (backend/test/kpi-engine.test.ts). All tests pass. |
-| AC-3 | EVID-CODE-2, EVID-TEST-1 | pass | Backend implements JSON snapshot persistence adapter (Task 4, backend/src/persistence/snapshot-repository.ts) with refresh orchestration and fallback resolver. Unit tests cover persistence success, failure recovery, and reuse on next load (backend/test/dashboard-service.test.ts includes snapshot-driven scenarios). All tests pass. |
+| AC-3 | EVID-CODE-2, EVID-CODE-7, EVID-TEST-1 | accepted-risk | Backend originally implemented JSON snapshot persistence adapter (Task 4, backend/src/persistence/snapshot-repository.ts) with refresh orchestration and fallback resolver, tested in backend/test/dashboard-service.test.ts. **Deviation (2026-07-28)**: adapter removed at explicit user request (EVID-CODE-7); no fallback path remains. Accepted as final rather than remediated via formal spec amendment (GitHub issue #1). Status downgraded from `pass` to `accepted-risk`. |
 | AC-4 | EVID-CODE-3, EVID-TEST-1 | pass | Frontend implements shared filter context (frontend/src/context/filter-context.tsx) to propagate filter state atomically to all KPI panels. No independent per-panel filters. Component tests verify filter updates propagate consistently to all panels (frontend/test/filter-context.test.tsx, frontend/test/dashboard-page.test.tsx). All tests pass. |
 | AC-5 | EVID-CODE-3, EVID-RUN-1 | pass | Frontend implemented using Amiga Web + IOP DS patterns (Task 6, EVID-CODE-3): dashboard shell uses typed page composition, components follow DS conventions with strict TypeScript, styling uses DS tokens/foundations. Code compiles without type errors (EVID-RUN-1, npm build). Architecture notes in ARCHITECTURE.md document Amiga Web compliance. |
-| AC-6 | EVID-CODE-2, EVID-CODE-3, EVID-TEST-1 | pass | Backend embeds freshness metadata and stale-state indicators in KPI payload (Task 4, backend/src/service/dashboard-service.ts). Frontend renders freshness timestamp and fallback UI states (frontend/src/components/*, Task 6). Unit tests verify timestamp inclusion and stale-snapshot signaling (backend/test/dashboard-service.test.ts). Component tests verify freshness UI rendering. All tests pass. |
+| AC-6 | EVID-CODE-2, EVID-CODE-3, EVID-CODE-7, EVID-TEST-1 | accepted-risk | Backend originally embedded freshness metadata and stale-state indicators in KPI payload (Task 4); frontend originally rendered freshness timestamp and fallback UI states (Task 6), tested in backend/test/dashboard-service.test.ts and component tests. **Deviation (2026-07-28)**: freshness UI text removed at explicit user request (EVID-CODE-7); freshness data is still computed/returned by the backend but no longer rendered. Accepted as final rather than remediated via formal spec amendment (GitHub issue #1). Status downgraded from `pass` to `accepted-risk`. |
 
 ## PR / Review Trace
 

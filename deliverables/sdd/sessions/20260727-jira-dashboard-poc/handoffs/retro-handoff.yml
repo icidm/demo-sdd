@@ -1,0 +1,27 @@
+schema_version: 1
+phase: retro
+status: ready
+artifacts:
+  retro:
+    kind: retro
+    scope: session
+    path: retro.md
+  spec-changes-registry:
+    kind: changes-registry
+    scope: workspace
+    path: .aicontext/deliverables/sdd/specs/jira/jira-projects-dashboard-kpis/changes/changes.json
+  spec-change-note:
+    kind: change-note
+    scope: workspace
+    path: .aicontext/deliverables/sdd/specs/jira/jira-projects-dashboard-kpis/changes/20260727-jira-dashboard-poc.md
+  canonical-spec:
+    kind: spec
+    scope: workspace
+    path: .aicontext/deliverables/sdd/specs/jira/jira-projects-dashboard-kpis/spec.md
+blocker_refs: []
+specs:
+- artifact: canonical-spec
+  relation: primary
+  replaces:
+    scope: session
+    path: specs/jira/jira-projects-dashboard-kpis/spec.md

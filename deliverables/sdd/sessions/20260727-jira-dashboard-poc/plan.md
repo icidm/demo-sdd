@@ -47,8 +47,9 @@ The PoC combines selected Jira projects into a single filtered dashboard perspec
 
 - **Unit**: Multi-project dashboard context selection - candidate issue: user-story
 - **Unit**: KPI visualization for delivery flow, predictability, and quality - candidate issue: user-story
-- **Unit**: Data freshness and partial-data transparency - candidate issue: user-story
-- **Unit**: Lightweight persisted snapshot continuity for dashboard state - candidate issue: user-story
+- **Unit**: Partial-data transparency across selected projects - candidate issue: user-story
+- **Retired unit**: Lightweight persisted snapshot continuity for dashboard state - removed 2026-07-28; snapshot persistence adapter dropped at explicit user request after spec-verification.
+- **Retired unit**: Data freshness UI indicator - removed 2026-07-28; freshness UI text dropped at explicit user request after spec-verification (backend freshness metadata may still exist but is no longer a required user-facing capability).
 - **Open question (functional/purpose)**: Which specific KPI list is the mandatory baseline for PoC sign-off - resolved as grouped KPI families with comparability across selected projects.
 
 ## Spec Registry
@@ -71,6 +72,7 @@ Backlog projection source of truth: `backlog-plan.yml`.
 - [Phase 1] Existing stable-spec overlap was treated as clear due to absence of discovered prior spec artifacts in the current workspace context.
 - [Phase 2] The requirement package already contained explicit constraints for source, persistence, UX alignment, and KPI focus, allowing direct clarification capture without adding speculative scope.
 - [Phase 3] A single-spec decomposition is sufficient for this PoC because all required outcomes are tightly coupled around one dashboard capability contract.
+- [Phase 3 amendment 2026-07-28] Retired AC-3 (JSON snapshot fallback) and AC-6 (freshness UI) from specs/jira/jira-projects-dashboard-kpis/spec.md. Both capabilities were removed from the implementation at explicit user request after spec-verification had already passed (EVID-CODE-7). Scope, Out Of Scope, Error Scenarios, and Risks And Assumptions were updated to match; remaining AC IDs (AC-1, AC-2, AC-4, AC-5) were kept stable rather than renumbered.
 
 ## Risks & Considerations
 

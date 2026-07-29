@@ -4,8 +4,8 @@ session:
   name: "Jira dashboard PoC"
   date: "20260727"
   created_at: "2026-07-27T15:10:44Z"
-  updated_at: "2026-07-28T14:33:54Z"
-status: active
+  updated_at: "2026-07-29T05:00:53Z"
+status: complete
 execution_mode: interactive
 track: complex
 track_classification:
@@ -18,10 +18,10 @@ track_classification:
     - "requires Amiga Web/IOP DS patterns"
     - "uses Jira MCP and JSON persistence"
 specs:
-  - path: "specs/jira/jira-projects-dashboard-kpis/spec.md"
-    scope: session
+  - path: ".aicontext/deliverables/sdd/specs/jira/jira-projects-dashboard-kpis/spec.md"
+    scope: workspace
     relation: primary
-current_phase: functional-spec
+current_phase: retro
 phases:
   bootstrap:
     status: complete
@@ -34,19 +34,19 @@ phases:
     completed_at: null
     artifacts: []
   functional-spec:
-    status: in-progress
-    completed_at: null
+    status: complete
+    completed_at: "2026-07-29T04:43:02Z"
     artifacts:
       - "specs/jira/jira-projects-dashboard-kpis/spec.md"
       - "backlog-plan.yml"
       - "plan.md"
   spec-validation:
-    status: pending
-    completed_at: null
+    status: complete
+    completed_at: "2026-07-29T04:43:40Z"
     artifacts: []
   technical-plan:
-    status: pending
-    completed_at: null
+    status: complete
+    completed_at: "2026-07-29T04:44:12Z"
     artifacts:
       - "tech-plan.md"
   test-design:
@@ -54,19 +54,23 @@ phases:
     completed_at: null
     artifacts: []
   implementation:
-    status: pending
-    completed_at: null
+    status: complete
+    completed_at: "2026-07-29T04:44:31Z"
     artifacts:
       - "code.md"
   spec-verification:
-    status: pending
-    completed_at: null
+    status: complete
+    completed_at: "2026-07-29T04:48:13Z"
     artifacts:
       - "verification.md"
   retro:
-    status: pending
-    completed_at: null
-    artifacts: []
+    status: complete
+    completed_at: "2026-07-29T04:58:18Z"
+    artifacts:
+      - "workspace:.aicontext/deliverables/sdd/specs/jira/jira-projects-dashboard-kpis/spec.md"
+      - "workspace:.aicontext/deliverables/sdd/specs/jira/jira-projects-dashboard-kpis/changes/20260727-jira-dashboard-poc.md"
+      - "workspace:.aicontext/deliverables/sdd/specs/jira/jira-projects-dashboard-kpis/changes/changes.json"
+      - "retro.md"
 gates:
   bootstrap:
     status: pass
@@ -77,17 +81,20 @@ gates:
     evidence:
       - "skipped: track=complex; Jira dashboard PoC with clear functional scope, Amiga Web/IOP DS UI constraints, Jira MCP as data source, and JSON persistence; needs spec + validation but not discovery or separate test-design."
   functional-spec:
-    status: pending
+    status: conditional-pass
     evidence:
+      - "User explicitly declined formal spec-amendment delegation and accepted AC-3/AC-6 deviations as final, documented on GitHub issue #1 rather than in an amended spec.md. No spec.md text change made."
       - "rerouted: from retro; User requested spec amendment: AC-3 (JSON snapshot fallback) and AC-6 (freshness UI) no longer hold since the snapshot persistence adapter and Freshness UI text were removed at explicit user request after spec-verification had already passed. Reopening functional-spec to amend/retire AC-3 and AC-6 before re-running spec-verification."
       - "accepted handoff manifest: functional-spec-handoff.yml"
   spec-validation:
-    status: pending
+    status: pass
     evidence:
+      - "Deterministic gate-check passed: session, spec-package, backlog, trace-gate, coverage. Re-validated after functional-spec closed with conditional-pass (AC-3/AC-6 deviations accepted, not amended in spec.md)."
       - "Deterministic gate-check passed: session, spec-package, backlog, trace-gate, coverage."
   technical-plan:
-    status: pending
+    status: pass
     evidence:
+      - "Prior tech-plan.md remains valid: no technical changes needed, AC-3/AC-6 deviations are removals of already-planned Task 4/Task 6 scope, accepted as final by the user. Deterministic gate-check passed: session, tech-plan, coverage."
       - "Technical plan remains valid; prior blocker was operational repo targeting and is now resolved"
       - "rerouted: from implementation; Implementation failed due to operational repo blocker; repository is now unblocked, revalidating technical handoff before retry"
       - "accepted handoff manifest: technical-plan-handoff.yml"
@@ -96,17 +103,20 @@ gates:
     evidence:
       - "skipped: track=complex; Jira dashboard PoC with clear functional scope, Amiga Web/IOP DS UI constraints, Jira MCP as data source, and JSON persistence; needs spec + validation but not discovery or separate test-design."
   implementation:
-    status: pending
+    status: pass
     evidence:
+      - "Prior code.md remains valid: current runtimes/root code already reflects the accepted AC-3/AC-6 deviation (EVID-CODE-7, snapshot-repository.ts removed, freshness UI text removed). Deterministic gate-check passed: session, code, coverage, trace-gate."
       - "accepted handoff manifest: implementation-handoff.yml"
       - "Blocked by BLOCK-REPO-CHECKOUT-MISSING: no local checkout for icidm/demo-sdd under workspace root."
   spec-verification:
-    status: pending
+    status: pass
     evidence:
+      - "verification.md and trace.md corrected to reflect AC-3/AC-6 as accepted-risk (was stale pass). Deterministic gate-check passed: session, verification, coverage, trace-gate. User confirmed acceptance at pre-retro checkpoint."
       - "accepted handoff manifest: spec-verification-handoff.yml"
   retro:
-    status: pending
-    evidence: []
+    status: pass
+    evidence:
+      - "accepted handoff manifest: retro-handoff.yml"
 orchestration:
   workspace_preflight:
     status: ready
@@ -125,32 +135,43 @@ orchestration:
     last_target: null
 metrics:
   phases:
+    - phase: retro
+      started_at: "2026-07-29T04:48:59Z"
+      completed_at: "2026-07-29T04:58:18Z"
+      specialist_invocations: 1
+      question_rounds: 0
     - phase: spec-verification
       started_at: "2026-07-28T09:53:55Z"
-      completed_at: "2026-07-28T10:12:36Z"
+      completed_at: "2026-07-29T04:48:13Z"
       specialist_invocations: 1
       question_rounds: 0
     - phase: implementation
       started_at: "2026-07-28T04:49:23Z"
-      completed_at: "2026-07-28T08:05:17Z"
+      completed_at: "2026-07-29T04:44:31Z"
       specialist_invocations: 3
       question_rounds: 0
     - phase: technical-plan
       started_at: "2026-07-28T04:44:09Z"
-      completed_at: "2026-07-28T07:14:12Z"
+      completed_at: "2026-07-29T04:44:12Z"
       specialist_invocations: 2
       question_rounds: 0
     - phase: spec-validation
       started_at: "2026-07-28T04:42:43Z"
-      completed_at: "2026-07-28T04:43:00Z"
+      completed_at: "2026-07-29T04:43:40Z"
       specialist_invocations: 1
       question_rounds: 0
     - phase: functional-spec
       started_at: "2026-07-27T15:11:35Z"
-      completed_at: "2026-07-28T04:41:32Z"
+      completed_at: "2026-07-29T04:43:02Z"
       specialist_invocations: 2
       question_rounds: 0
 decisions:
+  - date: "2026-07-29T04:48:13Z"
+    decision: "Pre-retro acceptance checkpoint: user confirmed the corrected verification result is acceptable \u2014 AC-1, AC-2, AC-4, AC-5 pass; AC-3, AC-6 accepted-risk (snapshot persistence and freshness UI removed at explicit user request, accepted as final, documented on GitHub issue #1). Proceeding to close spec-verification."
+    owner: "AIDevOrchestrator"
+  - date: "2026-07-29T04:42:45Z"
+    decision: "User declined the formal spec-amendment specialist delegation for AC-3/AC-6 (too slow) and instead directed the orchestrator to document the AC-3 (JSON snapshot fallback) and AC-6 (freshness UI) deviations directly on GitHub issue #1 (checklist + Known deviations note), accepting them as final without editing spec.md. Closing the functional-spec reopen and advancing."
+    owner: "AIDevOrchestrator"
   - date: "2026-07-28T14:33:46Z"
     decision: "Rerouted retro -> functional-spec for remediation. User requested spec amendment: AC-3 (JSON snapshot fallback) and AC-6 (freshness UI) no longer hold since the snapshot persistence adapter and Freshness UI text were removed at explicit user request after spec-verification had already passed. Reopening functional-spec to amend/retire AC-3 and AC-6 before re-running spec-verification."
     owner: "AIDevOrchestrator"

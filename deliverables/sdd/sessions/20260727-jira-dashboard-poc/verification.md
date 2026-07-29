@@ -17,15 +17,15 @@ schema_version: 1
 
 ## Verification Summary
 
-The implementation satisfies all six approved acceptance criteria. All evidence is directly traced through executed tests, successful build/lint commands, and code review against the functional specification.
+**Amended 2026-07-29**: The implementation originally satisfied all six approved acceptance criteria as evidenced below. Subsequently, at explicit user request, the JSON snapshot persistence adapter and the freshness UI text were removed from the codebase (`EVID-CODE-7`, `1cf7c4f`/`1797aec` on `feature/jira-dashboard-poc`). The user declined a formal spec amendment and instead accepted AC-3 and AC-6 as final in their current (reduced) form, documenting the decision on GitHub issue #1 and via the SDD session decision log. AC-3 and AC-6 are therefore recorded as `accepted-risk`, not `pass`. AC-1, AC-2, AC-4, and AC-5 are unaffected and remain `pass`.
 
-**Test Execution**: Full test suite executed successfully with 12 passing tests across shared (1), backend (7), and frontend (4) modules. All test output captured in verification artifacts.
+**Test Execution**: Full test suite executed successfully with 12 passing tests across shared (1), backend (7), and frontend (4) modules at the time of original verification. All test output captured in verification artifacts. Test coverage for the since-removed snapshot/freshness-UI behavior no longer reflects the current codebase.
 
 **Build/Lint Verification**: TypeScript compilation and linting passed without errors across all three modules, confirming code quality and type safety.
 
-**Evidence Mapping**: Each AC maps to concrete evidence from implementation code (EVID-CODE-*), successfully executed tests (EVID-TEST-*), and command verification (EVID-RUN-*). No AC remains without concrete executed evidence.
+**Evidence Mapping**: Each AC maps to concrete evidence from implementation code (EVID-CODE-*), successfully executed tests (EVID-TEST-*), and command verification (EVID-RUN-*). AC-3 and AC-6 additionally cite `EVID-CODE-7` documenting the accepted deviation.
 
-**Gate Decision**: All 6 ACs verified as `pass`. Combined gate decision is `pass` with no blocking review findings. The implementation is ready to advance to post-verification closure.
+**Gate Decision**: 4 ACs (AC-1, AC-2, AC-4, AC-5) verified as `pass`; 2 ACs (AC-3, AC-6) recorded as `accepted-risk` per explicit user decision. Combined gate decision is `pass` with no blocking review findings — `accepted-risk` is a supported terminal AC status, not a blocker. The implementation is ready to advance to post-verification closure.
 
 ## Artifact Index
 
@@ -41,10 +41,10 @@ The implementation satisfies all six approved acceptance criteria. All evidence 
 |---|---|---|---|---|
 | AC-1 | Given a user selects at least two Jira projects and a valid date range, when the dashboard loads data, then it displays KPI groups for delivery flow, predictability, and quality for each selected project and an aggregated comparison view. | EVID-CODE-2, EVID-CODE-3, EVID-TEST-1 | pass | Backend implements multi-project KPI computation with aggregation (Task 3, 5); frontend implements KPI group panels and comparison rendering (Task 7, EVID-CODE-3). Integration tests verify end-to-end KPI loading and display under multi-project context (backend/test/dashboard-service.test.ts). All tests pass. |
 | AC-2 | Given dashboard data is retrieved, when KPIs are rendered, then all KPI values are sourced from Jira MCP responses and no alternate data source is used. | EVID-CODE-2, EVID-TEST-1 | pass | Backend Jira ingestion service (backend/src/jira/*) enforces Jira MCP as exclusive source with no alternate-source fallback paths at ingestion layer (Task 2). Filter validation rejects invalid inputs before MCP queries. Unit tests verify ingestion behavior and malformed payload handling (backend/test/kpi-engine.test.ts). All tests pass. |
-| AC-3 | Given a successful data refresh, when backend state is persisted, then a JSON snapshot is stored and can be reused to render the latest known dashboard state on the next load. | EVID-CODE-2, EVID-TEST-1 | pass | Backend implements JSON snapshot persistence adapter (Task 4, backend/src/persistence/snapshot-repository.ts) with refresh orchestration and fallback resolver. Unit tests cover persistence success, failure recovery, and reuse on next load (backend/test/dashboard-service.test.ts includes snapshot-driven scenarios). All tests pass. |
+| AC-3 | Given a successful data refresh, when backend state is persisted, then a JSON snapshot is stored and can be reused to render the latest known dashboard state on the next load. | EVID-CODE-2, EVID-CODE-7, EVID-TEST-1 | accepted-risk | Originally implemented (Task 4, `backend/src/persistence/snapshot-repository.ts`) and tested (backend/test/dashboard-service.test.ts). **Deviation (2026-07-28)**: the snapshot persistence adapter was subsequently removed at explicit user request (`EVID-CODE-7`); no fallback path remains. The user declined a formal spec amendment and accepted this as final, documented on GitHub issue #1. Status downgraded from `pass` to `accepted-risk`. |
 | AC-4 | Given a user changes project or date filters, when the dashboard recalculates metrics, then all visible KPI panels update consistently under the same filter context. | EVID-CODE-3, EVID-TEST-1 | pass | Frontend implements shared filter context (frontend/src/context/filter-context.tsx) to propagate filter state atomically to all KPI panels. No independent per-panel filters. Component tests verify filter updates propagate consistently to all panels (frontend/test/filter-context.test.tsx, frontend/test/dashboard-page.test.tsx). All tests pass. |
 | AC-5 | Given the UI is displayed, when users navigate KPI groups and comparisons, then layout, components, and interaction patterns follow Inditex Amiga Web and IOP DS conventions. | EVID-CODE-3, EVID-RUN-1 | pass | Frontend implemented using Amiga Web + IOP DS patterns (Task 6, EVID-CODE-3): dashboard shell uses typed page composition, components follow DS conventions with strict TypeScript, styling uses DS tokens/foundations. Code compiles without type errors (EVID-RUN-1, npm build). Architecture notes in ARCHITECTURE.md document Amiga Web compliance. |
-| AC-6 | Given data was last refreshed at a known timestamp, when the dashboard is visible, then the user can see the freshness timestamp and distinguish fresh versus stale data. | EVID-CODE-2, EVID-CODE-3, EVID-TEST-1 | pass | Backend embeds freshness metadata and stale-state indicators in KPI payload (Task 4, backend/src/service/dashboard-service.ts). Frontend renders freshness timestamp and fallback UI states (frontend/src/components/*, Task 6). Unit tests verify timestamp inclusion and stale-snapshot signaling (backend/test/dashboard-service.test.ts). Component tests verify freshness UI rendering. All tests pass. |
+| AC-6 | Given data was last refreshed at a known timestamp, when the dashboard is visible, then the user can see the freshness timestamp and distinguish fresh versus stale data. | EVID-CODE-2, EVID-CODE-3, EVID-CODE-7, EVID-TEST-1 | accepted-risk | Originally implemented: backend embedded freshness metadata (Task 4) and frontend rendered freshness timestamp/fallback UI (Task 6), with unit/component test coverage. **Deviation (2026-07-28)**: the freshness UI text was subsequently removed at explicit user request (`EVID-CODE-7`); freshness data is still computed/returned by the backend but no longer rendered. The user declined a formal spec amendment and accepted this as final, documented on GitHub issue #1. Status downgraded from `pass` to `accepted-risk`. |
 
 Each AC row cites concrete `EVID-*` IDs. All evidence is traced through executed commands or code review against specifications.
 
@@ -120,7 +120,7 @@ Shared module test verifies dashboard contract types are correctly exported for 
 
 ## Open Findings
 
-No failing ACs. No missing evidence. No accepted risks. No deferred scope beyond PoC boundaries documented in spec.
+No failing ACs. No missing evidence. **2 accepted risks**: AC-3 (JSON snapshot persistence removed) and AC-6 (freshness UI text removed), both removed at explicit user request after original verification passed, and accepted as final rather than remediated via formal spec amendment (see GitHub issue #1 and session decision log). No deferred scope beyond PoC boundaries documented in spec.
 
 **Deferred scope** (explicitly documented in tech-plan.md and code.md, not ACs):
 - Production-grade relational storage (not PoC requirement)
@@ -136,8 +136,8 @@ All deferred items are tracked in HARDENING-NOTES.md as future non-PoC concerns 
 |---|---|
 | Gate | spec-verification |
 | Decision | pass |
-| Verification status | All 6 ACs verified as pass |
-| Evidence completeness | All ACs have concrete executed evidence (tests, build, lint, code review) |
+| Verification status | 4 ACs verified as pass (AC-1, AC-2, AC-4, AC-5); 2 ACs accepted-risk (AC-3, AC-6) per explicit user decision |
+| Evidence completeness | All ACs have concrete executed evidence (tests, build, lint, code review); AC-3/AC-6 additionally cite EVID-CODE-7 for the accepted deviation |
 | Blocking findings | 0 |
 | Next phase | Ready for review and PR delivery decision |
 
@@ -185,7 +185,7 @@ All code compiles without errors, all tests pass, and linting shows no violation
 | Field | Value |
 |---|---|
 | Gate | spec-verification |
-| Verification decision | pass (all 6 ACs) |
+| Verification decision | pass (AC-1, AC-2, AC-4, AC-5); accepted-risk (AC-3, AC-6) |
 | Review decision | pass (no blocking findings) |
 | Blocking findings | 0 |
 | Combined decision | pass |
@@ -236,4 +236,3 @@ The repository does not have GitHub Actions workflows configured (`.github/workf
 **Recommendation**: The PR is successfully marked as in-review status. The implementation has been verified locally with all tests passing (12/12), TypeScript compilation successful, and linting clean. No remote check failures to resolve.
 
 **Next step**: User may merge the PR immediately if desired, or defer until remote checks are configured and run.
-

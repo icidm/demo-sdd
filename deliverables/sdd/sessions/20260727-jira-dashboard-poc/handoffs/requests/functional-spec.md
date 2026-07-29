@@ -4,7 +4,7 @@ You are invoked as the AIDevPlanner specialist inside the `functional-spec` phas
 
 ## Required outcome
 
-Amend the approved spec at specs/jira/jira-projects-dashboard-kpis/spec.md: retire or rewrite AC-3 (JSON snapshot persisted and reused as fallback on next load) and AC-6 (user can see a freshness timestamp distinguishing fresh vs stale data), since the implementation now deliberately has no snapshot fallback and no freshness UI text, per explicit user direction earlier in this session. Produce an updated session-local spec draft, backlog-plan.yml delta if applicable, and a change note explaining what changed and why.
+Amend the approved spec to retire/adjust AC-3 (JSON snapshot fallback) and AC-6 (freshness UI) since the snapshot persistence adapter and Freshness UI text were removed at explicit user request after spec-verification had already passed. Update backlog-plan.yml and any dependent trace entries accordingly, then hand off for spec-validation.
 
 ## Operating contract
 
@@ -20,10 +20,10 @@ Amend the approved spec at specs/jira/jira-projects-dashboard-kpis/spec.md: reti
 
 - Session path: `.aicontext/deliverables/sdd/sessions/20260727-jira-dashboard-poc`
 - Read-only inputs:
-- `.aicontext/deliverables/sdd/sessions/20260727-jira-dashboard-poc/code.md`: Post-Verification Changes section documents EVID-CODE-5/6/7 and the exact AC-3/AC-6 deviation with rationale
-- `.aicontext/deliverables/sdd/sessions/20260727-jira-dashboard-poc/trace.md`: Acceptance Criteria Trace already flags AC-3 and AC-6 as DEVIATED with notes
+- `specs/jira/jira-projects-dashboard-kpis/spec.md`: current approved spec draft containing AC-3 and AC-6 to amend
+- `verification.md`: prior spec-verification evidence showing AC-3/AC-6 previously passed before the code removal
 - Session policy:
-- decision-scope: This is a deliberate scope reduction requested by the user (drop persistence fallback and freshness display), not a defect to fix in code; amend the spec to match the current, intended implementation.
+- (none)
 
 ## Successful handoff
 

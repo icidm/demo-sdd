@@ -1,0 +1,57 @@
+{
+  "schema_version": 2,
+  "spec_id": "SPEC-1",
+  "changes": [
+    {
+      "session_id": "20260727-jira-dashboard-poc",
+      "session_slug": "jira-dashboard-poc",
+      "date": "2026-07-29",
+      "timestamp": "2026-07-29T05:05:00Z",
+      "change_type": "created",
+      "spec_version": "1.0.0",
+      "previous_version": null,
+      "agent": "AIDevRetro",
+      "assistant": "vscode",
+      "model": "Claude Sonnet 5",
+      "commit": "2b238b6",
+      "version_ref": null,
+      "user": "Iago Cid Martínez",
+      "change_note": "Established the canonical Jira Projects Dashboard KPIs spec from the PoC delivery, reflecting the accepted final scope (AC-1, AC-2, AC-4, AC-5; snapshot persistence and freshness indicator retired).",
+      "change_note_path": "changes/20260727-jira-dashboard-poc.md",
+      "participants": [
+        {
+          "agent": "AIDevPlanner",
+          "assistant": "vscode",
+          "model": "GPT-5.3-Codex",
+          "commit": "409e9b6",
+          "version_ref": null,
+          "artifact": "plan.md"
+        },
+        {
+          "agent": "AIDevTechPlanner",
+          "assistant": "vscode",
+          "model": "GPT-5.3-Codex",
+          "commit": "2b238b6",
+          "version_ref": null,
+          "artifact": "tech-plan.md"
+        },
+        {
+          "agent": "AIDevCoder",
+          "assistant": "vscode",
+          "model": "GPT-5.3-Codex",
+          "commit": "2b238b6",
+          "version_ref": null,
+          "artifact": "code.md"
+        },
+        {
+          "agent": "AIDevVerifier",
+          "assistant": "vscode",
+          "model": "Claude Haiku 4.5",
+          "commit": "409e9b6",
+          "version_ref": null,
+          "artifact": "verification.md"
+        }
+      ]
+    }
+  ]
+}

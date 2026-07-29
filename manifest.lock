@@ -1,6 +1,6 @@
 schemaVersion: 1
-rootManifestHash: 430e663557089c8f9cd871f9a9adcbb2f13359fe4afcb92016c557f5d257e212
-generatedAt: '1785251862'
+rootManifestHash: 511b0a25bd45625d5157e502622cafe50c6eb7bb7867513ba48b3ab13aea9ebf
+generatedAt: '1785299106'
 templates:
 - reference: github:inditex/cac-moyaagentrules#templates/itx-coding
   sha: 409e9b6bb476f8c0218ae3df055b8d4a2d748225
