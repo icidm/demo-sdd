@@ -9,13 +9,12 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "declaration": true,
-    "baseUrl": ".",
     "paths": {
       "@demo/shared": [
-        "shared/src/index.ts"
+        "./shared/src/index.ts"
       ],
       "@demo/shared/*": [
-        "shared/src/*"
+        "./shared/src/*"
       ]
     }
   }
