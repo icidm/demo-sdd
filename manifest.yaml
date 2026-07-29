@@ -7,7 +7,6 @@ description: AI context for demo-ssd
 # Available: copilot, cursor, windsurf, cline, opencode, aider, claude, codex, roo, amp
 assistants:
   - copilot
-  - opencode
 
 # ─── Link mode ────────────────────────────────────────────────────────────────
 # How context files are linked into the assistant workspace.
@@ -97,3 +96,17 @@ packages:
     tools:
     - aidevtracker
     - geppetto-graph
+    rules:
+    - amiga-android/
+    - amiga-ios/
+    - api/
+    - api-simulation/
+    - atlassian/
+    - console/
+    - geppetto-graph/
+    - github-mcp/
+    - inditex/
+    - iops/
+    - meta/
+    - quality/
+    - sre/

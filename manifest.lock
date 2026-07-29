@@ -1,6 +1,6 @@
 schemaVersion: 1
-rootManifestHash: 511b0a25bd45625d5157e502622cafe50c6eb7bb7867513ba48b3ab13aea9ebf
-generatedAt: '1785299106'
+rootManifestHash: 5291f02a71a5bb4ec0fcfeabd5a5a13919114b9f950ee2adc6e5e94d095f4acc
+generatedAt: '1785311456'
 templates:
 - reference: github:inditex/cac-moyaagentrules#templates/itx-coding
   sha: 409e9b6bb476f8c0218ae3df055b8d4a2d748225
@@ -13,11 +13,25 @@ packages:
     declared:
       source: github:inditex/cac-moyaagentrules
       select:
+        rules:
+        - amiga-android/
+        - amiga-ios/
+        - api/
+        - api-simulation/
+        - atlassian/
+        - console/
+        - geppetto-graph/
+        - github-mcp/
+        - inditex/
+        - iops/
+        - meta/
+        - quality/
+        - sre/
         tools:
         - aidevtracker
         - geppetto-graph
     source: github:inditex/cac-moyaagentrules
-    selectHash: a64d2f55b03c80ee
+    selectHash: 6804b407c62c6d5b
     sha: 2b238b682f7c18e7453e23851c21f4e2f1c32ab0
     origin: user manifest
     position: 0
