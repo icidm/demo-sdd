@@ -1,5 +1,5 @@
-remote-config: "https://github.com/icidm/demo-sdd.git"
 name: demo-sdd
+remote-config: "https://github.com/icidm/demo-sdd.git"
 version: 1.0.0
 description: AI context for demo-ssd
 
@@ -87,6 +87,10 @@ marketplace:
 #       Authorization: "Bearer ${DOCS_TOKEN}"
 templates:
 - github:inditex/cac-moyaagentrules#templates/sdd
+repos:
+- name: demo-sdd
+  source: local:runtimes/root
+  ref: dev
 packages:
 - source: github:inditex/cac-moyaagentrules
   select:
