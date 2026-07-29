@@ -1,0 +1,41 @@
+deliverables/sdd/sessions/20260727-jira-dashboard-poc/handoffs/requests/.functional-spec.base.md
+  s_0d075cd0278887::t_2c47ab5a305fc7 7,23-24,26
+deliverables/sdd/sessions/20260727-jira-dashboard-poc/handoffs/requests/functional-spec.md
+  s_0d075cd0278887::t_2ec816b8377c7c 7,23-24,26
+deliverables/sdd/sessions/20260727-jira-dashboard-poc/handoffs/retro-handoff.yml
+  s_0d075cd0278887::t_c4a5fe9a7ca666 1-27
+deliverables/sdd/sessions/20260727-jira-dashboard-poc/plan.md
+  s_0d075cd0278887::t_1a7b2bc8ef2e58 50-52,75
+deliverables/sdd/sessions/20260727-jira-dashboard-poc/retro.md
+  s_0d075cd0278887::t_1c4dfa6f8297c4 1-71
+deliverables/sdd/sessions/20260727-jira-dashboard-poc/sdd-state.yml
+  s_0d075cd0278887::t_c4cfe071c2447b 7-8,21-22,24,37-38,44-45,48-49,57-58,62-63,67-73,84,86,90,92,95,97,106,108,112,114,117-119,138-142,145,150,155,160,165,169-174
+deliverables/sdd/sessions/20260727-jira-dashboard-poc/specs/jira/jira-projects-dashboard-kpis/spec.md
+  s_0d075cd0278887::t_f3de5984d2d927 21-22,37,44-45
+deliverables/sdd/sessions/20260727-jira-dashboard-poc/trace.md
+  s_0d075cd0278887::t_bc5c62d6fa403a 14,27-30,69,72
+deliverables/sdd/sessions/20260727-jira-dashboard-poc/verification.md
+  s_0d075cd0278887::t_5a97b742562cf9 20,22,26,28,44,47,123,139-140,188
+deliverables/sdd/specs/jira/jira-projects-dashboard-kpis/changes/20260727-jira-dashboard-poc.md
+  s_0d075cd0278887::t_a0e773bc362fce 1-23
+deliverables/sdd/specs/jira/jira-projects-dashboard-kpis/changes/changes.json
+  s_0d075cd0278887::t_38258802e7ba15 1-57
+deliverables/sdd/specs/jira/jira-projects-dashboard-kpis/spec.md
+  s_0d075cd0278887::t_bba59d76318be0 1-45
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "3254e14243856b43ec84b53decfee8e922b1cabd",
+  "prompts": {},
+  "sessions": {
+    "s_0d075cd0278887": {
+      "agent_id": {
+        "tool": "github-copilot",
+        "id": "8cf6049b-6404-4f72-bcb1-d6ee4072a984",
+        "model": "gpt-5.3-codex"
+      },
+      "human_author": "Iago Cid Martínez <iagocmar@ext.inditex.com>"
+    }
+  }
+}
