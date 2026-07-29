@@ -1,0 +1,21 @@
+manifest.lock
+  s_0d075cd0278887::t_519d9b5e366b59 2-3,16-29,34
+manifest.yaml
+  s_0d075cd0278887::t_2e9fd37919b521 99-112
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "7188f1be13ecead1ed295206432864619a3d2045",
+  "prompts": {},
+  "sessions": {
+    "s_0d075cd0278887": {
+      "agent_id": {
+        "tool": "github-copilot",
+        "id": "8cf6049b-6404-4f72-bcb1-d6ee4072a984",
+        "model": "gpt-5.3-codex"
+      },
+      "human_author": "Iago Cid Martínez <iagocmar@ext.inditex.com>"
+    }
+  }
+}
