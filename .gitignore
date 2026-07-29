@@ -28,3 +28,13 @@
 
 # aicontext internals (kept only on private/sdd-jira-dashboard-poc and sdd-jira-dashboard branches)
 .aicontext/
+
+# Secrets
+.env
+.env.*
+**/.env
+**/.env.*
+
+# Dependencies and build output
+node_modules/
+dist/
